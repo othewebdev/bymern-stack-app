@@ -1,3 +1,5 @@
+// Code snippet from Posts resolver in Back-End
+
 const { AuthenticationError, UserInputError } = require('apollo-server');
 const Post = require('../../models/Post');
 const checkAuth = require('../../utils/check-auth');
@@ -31,7 +33,7 @@ module.exports = {
             const user = checkAuth(context);
             console.log(user);
             
-            // User is retrieved without error
+            // User is retrieved w/o error
             if (body.trim() === ''){
                 throw new Error('Post body must not be empty');
             }
@@ -72,7 +74,7 @@ module.exports = {
             const post = await Post.findById(postId);
             if(post){
                 if(post.likes.find(like => like.username === username)){
-                    // Post already liked, unlike it
+                    // Post liked, unlike it
                     post.likes = post.likes.filter(like => like.username !== username);
                     await post.save();
                 } else {
